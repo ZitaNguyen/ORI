@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate ,login, logout
+from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.db import IntegrityError
 
 from .models import User
+from .forms import UserForm
 
 
 def index(request):
@@ -40,26 +41,29 @@ def logout_view(request):
 
 
 def register(request):
+    register_form = UserForm(request.POST)
+
     if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
 
-        # Ensure password matches confirmation
-        password = request.POST["password"]
-        confirmation = request.POST["confirmation"]
-        if password != confirmation:
-            messages.add_message(request, messages.WARNING, 'Passwords must match.')
-            return render(request, "users/register.html")
+        if register_form.is_valid():
+            username        = register_form.cleaned_data['username']
+            email           = register_form.cleaned_data['email']
+            password        = make_password(register_form.cleaned_data['password1'])
+            role            = register_form.cleaned_data['role']
 
-        # Attempt to create new user
-        try:
-            user = User.objects.create_user(username, email, password)
-            user.save()
-        except IntegrityError:
-            messages.add_message(request, messages.ERROR, 'Username already taken.')
-            return render(request, "users/register.html")
+            user = User.objects.create(
+                username = username,
+                email = email,
+                password = password,
+                role = role
+            )
 
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
-    else:
-        return render(request, "users/register.html")
+            messages.add_message(request, messages.SUCCESS, 'Registered successfully. You can now login.')
+            login(request, user)
+
+            return HttpResponseRedirect(reverse("index"))
+        # if form is invalid
+        else:
+            messages.add_message(request, messages.ERROR, 'Form is not valid.')
+
+    return render(request, "users/register.html", {'register_form': register_form})

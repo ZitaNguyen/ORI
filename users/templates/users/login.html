@@ -1,12 +1,12 @@
 {% extends "users/layout.html" %}
 
+{% block title %}
+    Login
+{% endblock %}
+
 {% block body %}
 
     <h2 class="mt-5">Login</h2>
-
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
 
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}

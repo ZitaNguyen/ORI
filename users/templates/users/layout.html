@@ -15,7 +15,7 @@
         <!-- Personal CSS -->
         <link rel="stylesheet" href="{% static 'users/styles.css'%}" />
 
-        <title>{% block title %}ORI{% endblock %}</title>
+        <title>ORI: {% block title %}{% endblock %}</title>
     </head>
 
     <body>
@@ -65,12 +65,12 @@
             <!-- Messages -->
             {% if messages %}
             <ul class="messages">
-            {% for message in messages %}
-            <div {% if message.tags %} class="alert {{ message.tags }} alert-dismissible fade show mt-3"{% endif %} role="alert">
-                <li>{{ message | safe }}</li>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% endfor %}
+                {% for message in messages %}
+                <div {% if message.tags %} class="alert {{ message.tags }} alert-dismissible fade show mt-3"{% endif %} role="alert">
+                    <li>{{ message | safe }}</li>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
             </ul>
             {% endif %}
 

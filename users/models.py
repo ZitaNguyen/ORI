@@ -3,4 +3,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pass
+    ROLES = (
+        ('', 'Select a role'),
+        ('admin', 'Admin'),
+        ('hr', 'HR'),
+        ('manager', 'Manager'),
+        ('employee', 'Employee')
+    )
+
+    role = models.CharField(choices=ROLES, default='', max_length=50)

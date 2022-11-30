@@ -1,27 +1,17 @@
 {% extends "users/layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Register
+{% endblock %}
 
 {% block body %}
 
     <h2 class="mt-5">Register</h2>
 
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
-        <div class="mb-3">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
-        </div>
-        <div class="mb-3">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
-        </div>
-        <div class="mb-3">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="mb-3">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-        </div>
+        {{ register_form|crispy }}
         <button class="btn btn-primary mb-3" type="submit">Register</button>
     </form>
 

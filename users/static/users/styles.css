@@ -3,3 +3,7 @@
     padding: 0;
     margin: 0;
 }
+
+p.help-block {
+    color: rgb(174, 14, 14);
+}
