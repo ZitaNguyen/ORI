@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Manager, Employee, Task, Template
 
-# Register your models here.
+
+admin.site.register(Manager)
+admin.site.register(Employee)
+admin.site.register(Task)
+admin.site.register(Template)
