@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users',
+    'authentication',
     'hr',
     'crispy_forms',
     'django.contrib.admin',
@@ -83,7 +83,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'authentication.Login'
 
 
 # Password validation
@@ -123,7 +123,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    'users/static/users'
+    'authentication/static/authentication'
 ]
 
 # Default primary key field type

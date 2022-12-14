@@ -1,0 +1,17 @@
+{% extends "authentication/layout.html" %}
+
+{% block body %}
+
+    <h1>Newhire List</h1>
+
+    {% if not employee%}
+    <p>Our team is complete.</p>
+    {% else %}
+        {% for user in users%}
+        <ul>
+            <li>Username: {{ user.username }}</li>
+            <li>Email: {{ user.email }}</li>
+        </ul>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

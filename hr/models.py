@@ -1,5 +1,7 @@
 from django.db import models
 
+from authentication.models import Login
+
 
 class Department(models.Model):
     DEPARTMENTS = (
@@ -17,8 +19,7 @@ class Status(models.Model):
     STATUSES =(
         ('upcoming', 'Upcoming'),
         ('current', 'Current'),
-        ('done', 'Done'),
-        ('overdue', 'Overdue')
+        ('done', 'Done')
     )
 
     name = models.CharField(choices=STATUSES, default='upcoming', unique=True, max_length=50)
@@ -34,20 +35,17 @@ class Task(models.Model):
     template = models.ForeignKey(Template, on_delete=models.CASCADE)
 
 
-class Manager(models.Model):
-    name        = models.CharField(max_length=100)
-    department  = models.ForeignKey(Department, on_delete=models.CASCADE)
-
-
 class Employee(models.Model):
-    name        = models.CharField(max_length=100)
-    title       = models.CharField(max_length=100)
-    departement = models.ForeignKey(Department, on_delete=models.CASCADE)
-    manager     = models.ForeignKey(Manager, on_delete=models.SET_NULL, null=True)
-    sign_date   = models.DateTimeField()
-    start_date  = models.DateTimeField()
-    template    = models.ForeignKey(Template, on_delete=models.SET_NULL, null=True, related_name='checklist_template')
-    status      = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, default='upcoming')
+    name        = models.ForeignKey(Login, on_delete=models.CASCADE, related_name='employee')
+    manager     = models.ForeignKey(Login, on_delete=models.CASCADE, related_name='manager', null=True, blank=True)
+    role        = models.CharField(max_length=50)
+    title       = models.CharField(max_length=100, null=True, blank=True)
+    departement = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
+    sign_date   = models.DateField(null=True, blank=True)
+    start_date  = models.DateField(null=True, blank=True)
+    template    = models.ForeignKey(Template, on_delete=models.SET_NULL, null=True, blank=True, related_name='checklist_template')
+    is_new      = models.BooleanField(default=True)
+    status      = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, null=True, blank=True, default=None, related_name='orientation_status')
 
 
 
