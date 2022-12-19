@@ -4,14 +4,34 @@
 
     <h1>Newhire List</h1>
 
-    {% if not employee%}
-    <p>Our team is complete.</p>
+    {% if not employees %}
+    <p>No new employees coming.</p>
     {% else %}
-        {% for user in users%}
-        <ul>
-            <li>Username: {{ user.username }}</li>
-            <li>Email: {{ user.email }}</li>
-        </ul>
-        {% endfor %}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Department</th>
+            <th scope="col">Manager</th>
+            <th scope="col">Sign date</th>
+            <th scope="col">Start date</th>
+            <th scope="col">Orientation status</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.name|title }}</td>
+                <td>Dev</td>
+                <td>IT</td>
+                <td>JF</td>
+                <td>12/11/2011</td>
+                <td>14/11/2011</td>
+                <td>Upcoming</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
     {% endif %}
 {% endblock %}

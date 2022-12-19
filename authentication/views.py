@@ -14,7 +14,6 @@ def index(request):
         return HttpResponseRedirect(reverse("login"))
     else:
         employee = Employee.objects.get(name=request.user)
-        print(employee.role)
         if employee.role == 'employee':
             return render(request, "employee/resource_list.html", {"employee":employee}) # to modify
         else:
@@ -78,7 +77,10 @@ def register(request):
         user.save()
 
         # Link user login account with employee table
-        employee = Employee.objects.create(name=user, role=role)
+        if (role == 'employee'):
+            employee = Employee.objects.create(name=user, role=role, is_new=True)
+        else:
+            employee = Employee.objects.create(name=user, role=role)
         employee.save()
 
         login(request, user)

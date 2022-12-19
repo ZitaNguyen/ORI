@@ -44,7 +44,7 @@ class Employee(models.Model):
     sign_date   = models.DateField(null=True, blank=True)
     start_date  = models.DateField(null=True, blank=True)
     template    = models.ForeignKey(Template, on_delete=models.SET_NULL, null=True, blank=True, related_name='checklist_template')
-    is_new      = models.BooleanField(default=True)
+    is_new      = models.BooleanField(default=False)
     status      = models.ForeignKey(Status, on_delete=models.SET_DEFAULT, null=True, blank=True, default=None, related_name='orientation_status')
 
 
