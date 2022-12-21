@@ -124,6 +124,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     'authentication/static/authentication'
+    # os.path.join(BASE_DIR, 'static')
 ]
 
 # Default primary key field type

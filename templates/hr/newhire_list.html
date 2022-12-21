@@ -2,36 +2,42 @@
 
 {% block body %}
 
-    <h1>Newhire List</h1>
+    <h1 class="my-3">Newhire List</h1>
 
     {% if not employees %}
     <p>No new employees coming.</p>
     {% else %}
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Title</th>
-            <th scope="col">Department</th>
-            <th scope="col">Manager</th>
-            <th scope="col">Sign date</th>
-            <th scope="col">Start date</th>
-            <th scope="col">Orientation status</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for employee in employees %}
+    <div class="table-responsive-sm">
+        <table class="table">
+          <thead>
             <tr>
-                <td>{{ employee.name|title }}</td>
-                <td>Dev</td>
-                <td>IT</td>
-                <td>JF</td>
-                <td>12/11/2011</td>
-                <td>14/11/2011</td>
-                <td>Upcoming</td>
+              <th scope="col">Name</th>
+              <th scope="col">Title</th>
+              <th scope="col">Dept</th>
+              <th scope="col">Manager</th>
+              <th scope="col">Sign date</th>
+              <th scope="col">Start date</th>
+              <th scope="col">Ori status</th>
             </tr>
-            {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+              {% for employee in employees %}
+              <tr>
+                  <td>{{ employee.name|title }}</td>
+                  <td>{{ employee.title|title }}</td>
+                  <td>{{ employee.department.name|upper }}</td>
+                  <td>{{ employee.manager.username|title }}</td>
+                  <td>{{ employee.sign_date }}</td>
+                  <td>{{ employee.start_date }}</td>
+                  <td>
+                    <a href="#" class="btn btn-primary" role="button">{{ employee.status.name|title }}</a>
+                  </td>
+                  <td><a href="{% url 'edit_profile' employee.id %}"><i class="bi bi-pencil-fill" style="color: rgb(2, 67, 100);"></i></a></td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
     {% endif %}
 {% endblock %}

@@ -11,26 +11,8 @@
 
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
-        <div class="mb-3">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
-        </div>
-        <div class="mb-3">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
-        </div>
-        <div class="mb-3">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="mb-3">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-        </div>
-        <select class="form-select mb-3" name="role">
-            <option selected>Choose a role</option>
-            <option value="admin">Admin</option>
-            <option value="hr">HR</option>
-            <option value="manager">Manager</option>
-            <option value="employee">Employee</option>
-         </select>
-        <input class="btn btn-primary mb-3" type="submit" value="Register">
+        {{ register_form|crispy }}
+        <button class="btn btn-primary mb-3" type="submit">Register</button>
     </form>
 
     Already have an account? <a href="{% url 'login' %}">Log In here.</a>
