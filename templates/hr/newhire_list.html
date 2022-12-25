@@ -30,7 +30,14 @@
                   <td>{{ employee.sign_date }}</td>
                   <td>{{ employee.start_date }}</td>
                   <td>
-                    <a href="#" class="btn btn-primary" role="button">{{ employee.status.name|title }}</a>
+                    <select id="status" class="form-select">
+                      <option value="{{ employee.status.name }}">{{ employee.status.name|title }}</option>
+                      {% for status in statuses %}
+                        {% if status != employee.status.name %}
+                        <option value=status>{{status|title}}</option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
                   </td>
                   <td><a href="{% url 'edit_profile' employee.id %}"><i class="bi bi-pencil-fill" style="color: rgb(2, 67, 100);"></i></a></td>
               </tr>

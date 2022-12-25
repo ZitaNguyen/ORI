@@ -3,14 +3,18 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Employee
+from .models import Employee, Status
 from .forms import ProfileForm
 
 
 @login_required
 def show_newhire(request):
     employees = Employee.objects.all().filter(is_new=True).order_by('-status')
-    return render(request, "hr/newhire_list.html", {'employees' : employees})
+    statuses = Status.objects.values_list('name', flat=True)
+    return render(request, "hr/newhire_list.html", {
+        'employees' : employees,
+        'statuses' : statuses
+    })
 
 
 @login_required
