@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, Http404
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -28,14 +28,7 @@ def edit_profile(request, employee_id):
         profile_form = ProfileForm(request.POST, instance=employee)
         if profile_form.is_valid():
             profile_form.save()
-            return HttpResponseRedirect(reverse('newhire_list'))
-
-    else:
-        profile_form = ProfileForm(instance=employee)
-        return render(request, "hr/edit_profile.html", {
-            "profile_form": profile_form,
-            "employee": employee
-        })
+            return HttpResponseRedirect(reverse('view_profile', args=(employee_id,)))
 
 
 @csrf_exempt
@@ -51,3 +44,17 @@ def edit_status(request, employee_id):
         employee.status = Status.objects.get(name=data["status"])
         employee.save()
         return HttpResponse(status=204)
+
+
+@login_required
+def view_profile(request, employee_id):
+    try:
+        employee = Employee.objects.get(id=employee_id)
+    except Employee.DoesNotExist:
+        return Http404("employee not found")
+
+    profile_form = ProfileForm(instance=employee)
+    return render(request, "hr/view_profile.html", {
+        "profile_form": profile_form,
+        "employee":employee
+    })

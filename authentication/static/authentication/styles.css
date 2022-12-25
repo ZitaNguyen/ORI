@@ -7,3 +7,7 @@
 p.help-block {
     color: rgb(174, 14, 14);
 }
+
+#div_id_sign_date, #div_id_start_date {
+    margin-bottom: 20px;
+}

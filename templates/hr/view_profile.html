@@ -1,0 +1,18 @@
+{% extends "authentication/layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<h1 class="my-3">{{ employee.name | upper }}'s profile</h1>
+<div class="row mx-3 gx-5">
+    <div class="col-md-3">
+        <form method="post" action="{% url 'edit_profile' employee.id %}">
+            {% csrf_token %}
+            {{ profile_form|crispy }}
+            <button class="btn btn-primary mb-3" type="submit">Save</button>
+        </form>
+    </div>
+    <div class="col-md-7">
+        Todo Checklist
+    </div>
+</div>
+{% endblock %}

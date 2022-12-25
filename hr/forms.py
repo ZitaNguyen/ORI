@@ -8,8 +8,8 @@ class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control mb-1'
+        for field in ['name','manager','role','title','department','template','status']:
+            self.fields[field].widget.attrs['class'] = 'form-control mb-3'
 
     class Meta:
         model = Employee
