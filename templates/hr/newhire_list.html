@@ -30,11 +30,11 @@
                   <td>{{ employee.sign_date }}</td>
                   <td>{{ employee.start_date }}</td>
                   <td>
-                    <select id="status" class="form-select">
+                    <select id="status-{{employee.id}}" data-id="{{ employee.id }}" class="form-select">
                       <option value="{{ employee.status.name }}">{{ employee.status.name|title }}</option>
                       {% for status in statuses %}
                         {% if status != employee.status.name %}
-                        <option value=status>{{status|title}}</option>
+                        <option value="{{ status }}">{{status|title}}</option>
                         {% endif %}
                       {% endfor %}
                     </select>
