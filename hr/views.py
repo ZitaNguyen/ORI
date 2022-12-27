@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 
-from .models import Employee, Status
+from .models import Employee, Status, Task
 from .forms import ProfileForm
 
 
@@ -53,8 +53,18 @@ def view_profile(request, employee_id):
     except Employee.DoesNotExist:
         return Http404("employee not found")
 
+    templates = employee.template.all()
+    if not templates:
+        tasks = None
+    else:
+        tasks = []
+        for template in templates:
+            tasks.extend(Task.objects.filter(template=template))
+
     profile_form = ProfileForm(instance=employee)
     return render(request, "hr/view_profile.html", {
         "profile_form": profile_form,
-        "employee":employee
+        "employee": employee,
+        "templates": templates,
+        "tasks": tasks
     })

@@ -4,15 +4,34 @@
 {% block body %}
 <h1 class="my-3">{{ employee.name | upper }}'s profile</h1>
 <div class="row mx-3 gx-5">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <form method="post" action="{% url 'edit_profile' employee.id %}">
             {% csrf_token %}
             {{ profile_form|crispy }}
             <button class="btn btn-primary mb-3" type="submit">Save</button>
         </form>
     </div>
-    <div class="col-md-7">
-        Todo Checklist
+    <div class="col-md-8">
+        <h2 class="mb-3">Todo Checklist</h2>
+        {% if not templates %}
+            <p>No templates</p>
+        {% else %}
+            {% for template in templates %}
+                <div class="mb-3">
+                    <h4 class="text-secondary">{{ template }}</h4>
+                    {% for task in tasks %}
+                        {% if task.template == template %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="check-{{ task.id }}">
+                            <label class="form-check-label" for="check-{{ task.id }}">
+                            {{ task }}
+                            </label>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}
