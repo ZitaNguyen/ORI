@@ -12,7 +12,7 @@ from .forms import ProfileForm
 
 @login_required
 def show_newhire(request):
-    employees = Employee.objects.all().filter(is_new=True).order_by('-status')
+    employees = Employee.objects.all().filter(is_new=True).order_by('start_date')
     statuses = Status.objects.values_list('name', flat=True)
     return render(request, "hr/newhire_list.html", {
         'employees' : employees,
@@ -28,7 +28,18 @@ def edit_profile(request, employee_id):
         profile_form = ProfileForm(request.POST, instance=employee)
         if profile_form.is_valid():
             profile_form.save()
-            return HttpResponseRedirect(reverse('view_profile', args=(employee_id,)))
+
+        # Get templates
+        templates = profile_form.cleaned_data['template']
+        # Get tasks from templates
+        tasks = []
+        for template in templates:
+            tasks.extend(Task.objects.filter(template=template))
+        # Add tasks for employee
+        for task in tasks:
+            employee.task.add(task)
+
+        return HttpResponseRedirect(reverse('view_profile', args=(employee_id,)))
 
 
 @csrf_exempt
@@ -57,9 +68,7 @@ def view_profile(request, employee_id):
     if not templates:
         tasks = None
     else:
-        tasks = []
-        for template in templates:
-            tasks.extend(Task.objects.filter(template=template))
+        tasks = employee.task.all()
 
     profile_form = ProfileForm(instance=employee)
     return render(request, "hr/view_profile.html", {
@@ -68,3 +77,18 @@ def view_profile(request, employee_id):
         "templates": templates,
         "tasks": tasks
     })
+
+
+@csrf_exempt
+@login_required
+def check_done(request, employee_id, task_id):
+    if request.method == "PUT":
+        try:
+            employee = Employee.objects.get(id=employee_id)
+        except Employee.DoesNotExist:
+            return JsonResponse({"error": "Employee not found"}, status=404)
+
+        employee.task.remove(task_id)
+        employee.save()
+
+        return HttpResponse(status=204)

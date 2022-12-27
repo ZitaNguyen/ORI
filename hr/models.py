@@ -57,7 +57,6 @@ class Template(models.Model):
 
 class Task(models.Model):
     name = models.CharField(max_length=100)
-    done = models.BooleanField(default=False)
     template = models.ForeignKey(Template, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -73,6 +72,7 @@ class Employee(models.Model):
     sign_date   = models.DateField(null=True, blank=True)
     start_date  = models.DateField(null=True, blank=True)
     template    = models.ManyToManyField(Template, blank=True, related_name='checklist_template')
+    task        = models.ManyToManyField(Task, blank=True)
     is_new      = models.BooleanField(default=False)
     status      = models.ForeignKey(Status, on_delete=models.CASCADE, related_name='orientation_status')
 

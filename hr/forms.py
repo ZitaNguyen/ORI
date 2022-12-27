@@ -13,7 +13,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Employee
-        exclude = ('is_new',)
+        exclude = ('is_new', 'task')
 
 
     manager     = forms.ModelChoiceField(queryset=Login.objects.filter(username__in=list(Employee.objects.filter(role=3))))
