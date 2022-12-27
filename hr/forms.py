@@ -1,7 +1,7 @@
 import datetime
 
 from django import forms
-from .models import Employee, Department
+from .models import Employee, Template
 from authentication.models import Login
 
 class ProfileForm(forms.ModelForm):
@@ -19,6 +19,7 @@ class ProfileForm(forms.ModelForm):
     manager     = forms.ModelChoiceField(queryset=Login.objects.filter(username__in=list(Employee.objects.filter(role=3))))
     sign_date   = forms.DateField(widget=forms.SelectDateWidget)
     start_date  = forms.DateField(widget=forms.SelectDateWidget)
+    template    = forms.ModelMultipleChoiceField(queryset=Template.objects.all())
 
 
 

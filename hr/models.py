@@ -72,7 +72,7 @@ class Employee(models.Model):
     department  = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
     sign_date   = models.DateField(null=True, blank=True)
     start_date  = models.DateField(null=True, blank=True)
-    template    = models.ForeignKey(Template, on_delete=models.SET_NULL, null=True, blank=True, related_name='checklist_template')
+    template    = models.ManyToManyField(Template, blank=True, related_name='checklist_template')
     is_new      = models.BooleanField(default=False)
     status      = models.ForeignKey(Status, on_delete=models.CASCADE, related_name='orientation_status')
 
