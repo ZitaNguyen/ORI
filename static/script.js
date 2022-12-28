@@ -8,12 +8,17 @@ document.addEventListener('DOMContentLoaded', function() {
             let employee_id = element.dataset.id;
 
             element.addEventListener('change', () => {
+                if (element.value == "done") {
+                    document.querySelector(`#employee-${employee_id}`).style.display = "none";
+                }
+                
                 fetch(`edit_status/${employee_id}`, {
                     method: 'PUT',
                     body: JSON.stringify({
                         status: element.value
                     })
                 })
+
             })
         }
 

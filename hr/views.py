@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, Http404
 from django.urls import reverse
+from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -12,7 +13,8 @@ from .forms import ProfileForm
 
 @login_required
 def show_newhire(request):
-    employees = Employee.objects.all().filter(is_new=True).order_by('start_date')
+    # Get employee with status 'upcoming' or 'current'
+    employees = Employee.objects.all().filter(Q(status=2) | Q(status=3)).order_by('start_date')
     statuses = Status.objects.values_list('name', flat=True)
     return render(request, "hr/newhire_list.html", {
         'employees' : employees,

@@ -24,7 +24,7 @@
           </thead>
           <tbody>
               {% for employee in employees %}
-              <tr>
+              <tr id="employee-{{ employee.id }}">
                   <td>{{ employee.name|title }}</td>
                   <td>{{ employee.title|title }}</td>
                   <td>{{ employee.department.name|upper }}</td>
@@ -32,7 +32,7 @@
                   <td>{{ employee.sign_date }}</td>
                   <td>{{ employee.start_date }}</td>
                   <td>
-                    <select id="status-{{employee.id}}" data-id="{{ employee.id }}" class="form-select w-50">
+                    <select id="status-{{ employee.id }}" data-id="{{ employee.id }}" class="form-select w-50">
                       <option value="{{ employee.status.name }}">{{ employee.status.name|title }}</option>
                       {% for status in statuses %}
                         {% if status != employee.status.name %}
