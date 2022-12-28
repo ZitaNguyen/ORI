@@ -4,6 +4,8 @@
 
     <h1 class="my-3">Newhire List</h1>
 
+    <a href="{% url 'register' %}" role="button" class="btn btn-primary">+ Add newhire</a>
+
     {% if not employees %}
     <p>No new employees coming.</p>
     {% else %}

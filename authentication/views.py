@@ -14,9 +14,7 @@ def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
-        employee = Employee.objects.get(name=request.user)
-        user_role = Role.objects.get(name=employee.role)
-        if user_role.name == 'employee':
+        if not request.user.is_staff and not request.user.is_superuser:
             return HttpResponseRedirect(reverse("resource_list"))
         else:
             return HttpResponseRedirect(reverse("newhire_list"))
@@ -66,19 +64,19 @@ def register(request):
 
             # Attempt to create new user
             try:
-                user = Login.objects.create_user(username, email, password)
-                user.save()
+                new_user = Login.objects.create_user(username, email, password)
+                new_user.save()
             except IntegrityError:
                 messages.add_message(request, messages.WARNING, 'Username already taken.')
                 return render(request, "authentication/register.html", {"register_form": register_form})
 
             # Update user's permission to access database
             if (role == 'admin'):
-                user.is_superuser = True
-                user.is_staff = True
-            elif (role == 'hr'):
-                user.is_staff = True
-            user.save()
+                new_user.is_superuser = True
+                new_user.is_staff = True
+            elif (role == 'hr' or role == 'manager'):
+                new_user.is_staff = True
+            new_user.save()
 
             # Link user login account with employee table
             if (role == 'employee'):
@@ -87,18 +85,17 @@ def register(request):
                 # Get status id
                 status_id = Status.objects.get(name='upcoming')
                 # Create employee
-                employee = Employee.objects.create(name=user, role=role_id, is_new=True, status=status_id)
+                employee = Employee.objects.create(name=new_user, role=role_id, is_new=True, status=status_id)
             else:
                 # Get role id
                 role_id = Role.objects.get(name=role)
                 # Get status id
                 status_id = Status.objects.get(name='done')
                 # Create employee
-                employee = Employee.objects.create(name=user, role=role_id, status=status_id)
+                employee = Employee.objects.create(name=new_user, role=role_id, status=status_id)
             employee.save()
 
-            login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("newhire_list"))
 
     else:
         register_form = RegisterForm()
