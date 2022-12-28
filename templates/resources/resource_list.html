@@ -2,7 +2,23 @@
 
 {% block body %}
 
-    <h1>Resources</h1>
+    <h1 class="my-3">Resources</h1>
 
-    <p>All Resources</p>
+    <a href="{% url 'add_resource' %}" role="button" class="btn btn-primary">+ Add resource</a>
+
+    {% if not resources %}
+        <p class="my-3">No resource added.</p>
+    {% else %}
+    <div class="row row-cols-1 row-cols-md-2 g-4 my-3">
+        {% for resource in resources %}
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-center">{{ resource.category|upper }}</h5>
+                </div>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 {% endblock %}
