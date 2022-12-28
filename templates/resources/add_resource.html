@@ -5,7 +5,7 @@
 
     <h1 class="my-3">Add Resources</h1>
 
-    <form method="post">
+    <form method="post" action="{% url 'add_resource' %}">
         {% csrf_token %}
         {{ resource_form|crispy }}
         <button class="btn btn-primary mb-3" type="submit">Save</button>

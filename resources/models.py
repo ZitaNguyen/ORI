@@ -11,7 +11,7 @@ class Resource(models.Model):
     )
 
     name = models.CharField(max_length=100)
-    category = models.CharField(choices=CATEGORIES, default='training', unique=True, max_length=50)
+    category = models.CharField(choices=CATEGORIES, default='training', max_length=50)
     sub_category = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
     content = models.TextField()
 
