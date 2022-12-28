@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, Http404
 from django.urls import reverse
 from django.db.models import Q
+from django.contrib import messages
+
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -41,6 +43,7 @@ def edit_profile(request, employee_id):
         for task in tasks:
             employee.task.add(task)
 
+        messages.add_message(request, messages.SUCCESS, 'Profile was updated.')
         return HttpResponseRedirect(reverse('view_profile', args=(employee_id,)))
 
 
