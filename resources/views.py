@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 
 from .models import Resource
+from hr.models import Employee
 from .forms import ResourceForm
 
 
 @login_required
 def show_resources(request):
     categories = Resource.objects.values_list('category', flat=True).distinct()
-    return render(request, "resources/resource_list.html", {"categories":categories})
+    return render(request, "resources/resource_list.html", {"categories": categories})
 
 
 
@@ -34,3 +33,10 @@ def category_items(request, category):
         "items":category_items,
         "category":category
     })
+
+
+@login_required
+def show_contact(request):
+    user = Employee.objects.get(name=request.user)
+    teams = Employee.objects.filter(department=user.department)
+    return render(request, "resources/contact_list.html", {"teams":teams})

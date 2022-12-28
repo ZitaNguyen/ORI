@@ -6,8 +6,7 @@ class Resource(models.Model):
     CATEGORIES = (
         ('training', 'Training'),
         ('company', 'Company'),
-        ('handbook', 'Handbook'),
-        ('contacts', 'Contacts')
+        ('handbook', 'Handbook')
     )
 
     name = models.CharField(max_length=100)
@@ -16,4 +15,4 @@ class Resource(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return f"{self.category}"
+        return f"{self.category, self.name}"
