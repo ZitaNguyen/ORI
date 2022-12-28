@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         }
 
-        // Toogle done in task status
+        // Check done in task status
         if (element.id.startsWith('check-')) {
             ids = element.dataset.id;
             ids = ids.slice(1, -1).replaceAll('"', '').replace(/\s/g, '').split(',');
@@ -30,6 +30,24 @@ document.addEventListener('DOMContentLoaded', function() {
             })
 
             document.querySelector(`#form-check-${employee_id}-${template_id}-${task_id}`).style.display = "none";
+        }
+
+        // Show resource item details
+        if (element.id.startsWith('item-')) {
+            id = element.dataset.id;
+            state = element.dataset.state;
+            content = element.dataset.content;
+            if (state == "on") {
+                document.querySelector(`#content-${id}`).remove();
+                element.dataset.state = "off";
+            } else {
+                let p = document.createElement('p');
+                p.setAttribute('id', `content-${id}`);
+                p.innerHTML = content;
+                element.parentNode.append(p);
+                element.dataset.state = "on";
+            }
+
         }
     })
 })
