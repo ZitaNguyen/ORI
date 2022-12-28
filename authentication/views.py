@@ -49,9 +49,8 @@ def logout_view(request):
 
 
 def register(request):
-    register_form = RegisterForm(request.POST)
-
     if request.method == "POST":
+        register_form = RegisterForm(request.POST)
 
         if register_form.is_valid():
             username        = register_form.cleaned_data['username']
@@ -101,4 +100,6 @@ def register(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
 
-    return render(request, "authentication/register.html", {"register_form": register_form})
+    else:
+        register_form = RegisterForm()
+        return render(request, "authentication/register.html", {"register_form": register_form})

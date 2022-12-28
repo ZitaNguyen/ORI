@@ -39,4 +39,5 @@ def category_items(request, category):
 def show_contact(request):
     user = Employee.objects.get(name=request.user)
     teams = Employee.objects.filter(department=user.department)
-    return render(request, "resources/contact_list.html", {"teams":teams})
+    print(teams)
+    return render(request, "resources/contact_list.html", {"teams":teams, "username":user.name})
