@@ -17,7 +17,7 @@ def index(request):
         employee = Employee.objects.get(name=request.user)
         user_role = Role.objects.get(name=employee.role)
         if user_role.name == 'employee':
-            return render(request, "employee/resource_list.html", {"user_role":user_role.name})
+            return HttpResponseRedirect(reverse("resource_list"))
         else:
             return HttpResponseRedirect(reverse("newhire_list"))
 

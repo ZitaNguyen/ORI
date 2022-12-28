@@ -32,13 +32,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
-                        {% if user_role != 'employee' %}
                         <li class="nav-item">
-                        <a class="nav-link page active" href="{% url 'newhire_list' %}">Newly Hire List</a>
+                        <a class="nav-link page" href="{% url 'newhire_list' %}">Newly Hire List</a>
                         </li>
-                        {% endif %}
                         <li class="nav-item">
-                        <a class="nav-link page" href="#">Resources</a>
+                        <a class="nav-link page" href="{% url 'resource_list' %}">Resources</a>
                         </li>
                     </ul>
 
@@ -87,7 +85,7 @@
             crossorigin="anonymous"
         ></script>
 
-        <!-- <script>
+        <script>
         document.querySelectorAll('.page').forEach((nav) => {
             if (nav.pathname === window.location.pathname) {
             nav.classList.add('active');
@@ -95,7 +93,7 @@
             nav.classList.remove('active');
             }
         })
-        </script> -->
+        </script>
 
         <script src='{% static "hr/script.js" %}'></script>
 
