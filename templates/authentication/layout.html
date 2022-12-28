@@ -32,9 +32,11 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
+                        {% if user.is_staff or user.is_superuser %}
                         <li class="nav-item">
                         <a class="nav-link page" href="{% url 'newhire_list' %}">Newly Hire List</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item">
                         <a class="nav-link page" href="{% url 'resource_list' %}">Resources</a>
                         </li>

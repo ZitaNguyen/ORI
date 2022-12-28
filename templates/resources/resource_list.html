@@ -4,7 +4,9 @@
 
     <h1 class="my-3">Resources</h1>
 
+    {% if user.is_staff or user.is_superuser %}
     <a href="{% url 'add_resource' %}" role="button" class="btn btn-primary">+ Add resource</a>
+    {% endif %}
 
     {% if not categories %}
         <p class="my-3">No resource added.</p>
