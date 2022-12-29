@@ -7,4 +7,5 @@ urlpatterns = [
     path("add_resource", views.add_resource, name="add_resource"),
     path("category_items/<str:category>", views.category_items, name="category_items"),
     path("contact_list", views.show_contact, name="contact_list"),
+    path("training_video", views.show_video, name="training_video"),
 ]

@@ -40,3 +40,14 @@ def show_contact(request):
     user = Employee.objects.get(name=request.user)
     teams = Employee.objects.filter(department=user.department)
     return render(request, "resources/contact_list.html", {"teams":teams, "username":user.name})
+
+
+@login_required
+def show_video(request):
+    employee = Employee.objects.get(name=request.user)
+    resources = Resource.objects.filter(category='training', sub_category=employee.department)
+    print(resources)
+    return render(request, "resources/training_video.html", {
+        "resources": resources,
+        "department": employee.department.name
+    })

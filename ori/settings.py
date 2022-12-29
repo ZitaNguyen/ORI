@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'authentication',
     'hr',
     'resources',
+    'embed_video',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',

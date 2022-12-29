@@ -9,6 +9,8 @@ class ResourceForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control mb-3'
             self.fields['sub_category'].required = False
+            self.fields['content'].required = False
+            self.fields['video'].required = False
 
     class Meta:
         model = Resource
