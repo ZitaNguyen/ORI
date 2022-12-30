@@ -1,6 +1,6 @@
 # Employee Orientation Web
 
-#### Video Demo: [URL here]()
+#### Video Demo: [URL here](https://youtu.be/jAPnwDseUyA)
 
 #### Description:
 
@@ -14,19 +14,20 @@ This is a project built with Django framework for backend, and Javascript, Boots
 
 1. authentication: application for register new employees, login and logout
 
-2. hr: application for HR team to view newhire list, modify employees'profile, update each employee orientation status, follow todo checklist, add new resources for newhire
+2. hr: application for HR team to view newlyhire list, modify employees'profile, update each employee orientation status, follow todo checklist
 
-3. resources: application specially for new hires at the company, including 4 main categories: company, handbook, trainings, and first contacts
+3. resources: application to view all resources and to add new resources to database, including 4 main categories: company, handbook, trainings, and first contacts
 
 Here is a database diagram
 ![ORI DB](static/ORI_db.png)
 
-For the scope of this project, a superuser (admin) have inserted data into certain tables (Role, Department, Status, Login of current employees, Template, Task). When users log in, depending on their roles, views will render access to different pages, and limit some functions.For admin, manager, HR role, they can access to both Newlyhire List and Resources page. For employee role, they can only view Resources page.
+For the scope of this project, a superuser (admin), by using admin interface, have inserted data into certain tables (Role, Department, Status, Login of current employees, Template, Task). When users log in, depending on their roles, views will render access to different pages, and limit some functions.For admin, manager, HR role, they can access to both Newlyhire List and Resources page. For employee role, they can only view Resources page.
 
 * Newlyhire List page (for admin, manager, HR role)
     * This list is ordered by employee's start date, and only shows employees whose orientation status is "upcoming" or "current".
     * The Add Newhire button will help user to register new employees with their usernames, passwords, and roles
     * At this page, users can modify the orientation status by clicking at the select button, which is run by Javascript
+    * When "done" status is selected, the employee will be removed from the list (bug: only apply for first change)
     * The View button will lead users to View Profile page
 
 * Register
@@ -52,6 +53,12 @@ For the scope of this project, a superuser (admin) have inserted data into certa
 * Add Resource (form)
     * To add resource for Company and Handbook category, user has to fill in (resource) name, category, and content
     * To embed a video for Trainings category, user has to fill (resource) name, category, sub_category (choose a target department for this video), video (url)
+    * Note (or bug :D) - for videos shown at the Trainings page, I have to, firstly, clear all cookies from browser.
 
-
-
+**How to run the application**
+1. Install Python
+2. Clone this project to your local
+3. Create virtual environment and activate
+4. Install all required packages
+5. Migrate database
+6. Start Django server and run locally
