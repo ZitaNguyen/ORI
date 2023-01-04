@@ -1,6 +1,6 @@
 # Employee Orientation Web
 
-#### Video Demo: [URL here](https://youtu.be/jAPnwDseUyA)
+#### Video Demo: [URL here](https://youtu.be/JVeIVYggRuM)
 
 #### Description:
 
@@ -27,7 +27,7 @@ For the scope of this project, a superuser (admin), by using admin interface, ha
     * This list is ordered by employee's start date, and only shows employees whose orientation status is "upcoming" or "current".
     * The Add Newhire button will help user to register new employees with their usernames, passwords, and roles
     * At this page, users can modify the orientation status by clicking at the select button, which is run by Javascript
-    * When "done" status is selected, the employee will be removed from the list (bug: only apply for first change)
+    * When "done" status is selected, the employee will be removed from the list
     * The View button will lead users to View Profile page
 
 * Register
@@ -53,7 +53,7 @@ For the scope of this project, a superuser (admin), by using admin interface, ha
 * Add Resource (form)
     * To add resource for Company and Handbook category, user has to fill in (resource) name, category, and content
     * To embed a video for Trainings category, user has to fill (resource) name, category, sub_category (choose a target department for this video), video (url)
-    * Note (or bug :D) - for videos shown at the Trainings page, I have to, firstly, clear all cookies from browser.
+    * Note - for videos shown at the Trainings page, I have to, firstly, clear all cookies from browser.
 
 **How to run the application**
 1. Install Python
