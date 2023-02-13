@@ -1,6 +1,6 @@
 # Employee Orientation Web
 
-#### Video Demo: [URL here](https://youtu.be/JVeIVYggRuM)
+#### Video Demo: [URL here](https://youtu.be/jAPnwDseUyA)
 
 #### Description:
 
@@ -57,8 +57,29 @@ For the scope of this project, a superuser (admin), by using admin interface, ha
 
 **How to run the application**
 1. Install Python
+```
+$ brew install python
+$ python --version
+```
 2. Clone this project to your local
+```
+$ git clone https://github.com/ZitaNguyen/ori.git
+```
 3. Create virtual environment and activate
+```
+$ python -m venv venv
+$ source venv/bin/activate
+```
 4. Install all required packages
+```
+$ pip install -r requirements.txt
+```
 5. Migrate database
+```
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
 6. Start Django server and run locally
+```
+$ python manage.py runserver
+```
